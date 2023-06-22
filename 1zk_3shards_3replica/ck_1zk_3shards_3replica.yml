@@ -1,0 +1,98 @@
+version: '3'
+
+services:
+  zookeeper01:
+    image: zookeeper:3.6.2
+    hostname: zk01
+    container_name: clickhouse-zookeeper
+    ports:
+      - "12181:2181"
+    networks:
+      clickhouse-cluster:
+        ipv4_address: 172.16.1.2
+
+  clickhouse01:
+    image: yandex/clickhouse-server:${CLICKHOUSE_VERSION:-20.8.19.4}
+    ports:
+      - "8124:8123"
+    hostname: ck01
+    container_name: clickhouse-server-ck01
+    ulimits:
+      nofile:
+        soft: 262144
+        hard: 262144
+    networks:
+      clickhouse-cluster:
+        ipv4_address: 172.16.1.6
+    extra_hosts:
+      - "zk01:172.16.1.2"
+      - "ch02:172.16.1.7"
+      - "ch03:172.16.1.8"
+    volumes:
+      # 配置文件
+      - ~/apps/clickhouse/ck01/conf/config_ck01.xml:/etc/clickhouse-server/config.xml
+      - ~/apps/clickhouse/ck01/conf/users.xml:/etc/clickhouse-server/users.xml
+      # 数据存储位置
+      - ~/apps/clickhouse/ck01/data/:/var/lib/clickhouse/
+      # 日志存储位置
+      - ~/apps/clickhouse/ck01/logs/:/var/log/clickhouse-server/
+    depends_on:
+      - "zookeeper01"
+
+  clickhouse02:
+    image: yandex/clickhouse-server:${CLICKHOUSE_VERSION:-20.8.19.4}
+    ports:
+      - "8125:8123"
+    hostname: ck02
+    container_name: clickhouse-server-ck02
+    ulimits:
+      nofile:
+        soft: 262144
+        hard: 262144
+    networks:
+      clickhouse-cluster:
+        ipv4_address: 172.16.1.7
+    extra_hosts:
+      - "zk01:172.18.1.2"
+      - "ch01:172.18.1.6"
+      - "ch03:172.18.1.8"
+    volumes:
+      - ~/apps/clickhouse/ck02/conf/config_ck02.xml:/etc/clickhouse-server/config.xml
+      - ~/apps/clickhouse/ck02/conf/users.xml:/etc/clickhouse-server/users.xml
+      - ~/apps/clickhouse/ck02/data/:/var/lib/clickhouse/
+      - ~/apps/clickhouse/ck02/logs/:/var/log/clickhouse-server/
+    depends_on:
+      - "zookeeper01"
+
+  clickhouse03:
+    image: yandex/clickhouse-server:${CLICKHOUSE_VERSION:-20.8.19.4}
+    ports:
+      - "8126:8123"
+    hostname: ck03
+    container_name: clickhouse-server-ck03
+    ulimits:
+      nofile:
+        soft: 262144
+        hard: 262144
+    networks:
+      clickhouse-cluster:
+        ipv4_address: 172.16.1.8
+    extra_hosts:
+      - "zk01:172.16.1.2"
+      - "ch01:172.16.1.6"
+      - "ch02:172.16.1.7"
+    volumes:
+      - ~/apps/clickhouse/ck03/conf/config_ck03.xml:/etc/clickhouse-server/config.xml
+      - ~/apps/clickhouse/ck03/conf/users.xml:/etc/clickhouse-server/users.xml
+      - ~/apps/clickhouse/ck03/data/:/var/lib/clickhouse/
+      - ~/apps/clickhouse/ck03/logs/:/var/log/clickhouse-server/
+    depends_on:
+      - "zookeeper01"
+
+networks:
+  clickhouse-cluster:
+    driver: bridge
+    ipam:
+      driver: default
+      config:
+        - subnet: 172.16.1.0/16
