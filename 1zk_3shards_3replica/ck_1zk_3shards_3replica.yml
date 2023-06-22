@@ -26,8 +26,8 @@ services:
         ipv4_address: 172.16.1.6
     extra_hosts:
       - "zk01:172.16.1.2"
-      - "ch02:172.16.1.7"
-      - "ch03:172.16.1.8"
+      - "ck02:172.16.1.7"
+      - "ck03:172.16.1.8"
     volumes:
       # 配置文件
       - ~/apps/clickhouse/ck01/conf/config_ck01.xml:/etc/clickhouse-server/config.xml
@@ -54,8 +54,8 @@ services:
         ipv4_address: 172.16.1.7
     extra_hosts:
       - "zk01:172.18.1.2"
-      - "ch01:172.18.1.6"
-      - "ch03:172.18.1.8"
+      - "ck01:172.18.1.6"
+      - "ck03:172.18.1.8"
     volumes:
       - ~/apps/clickhouse/ck02/conf/config_ck02.xml:/etc/clickhouse-server/config.xml
       - ~/apps/clickhouse/ck02/conf/users.xml:/etc/clickhouse-server/users.xml
@@ -79,8 +79,8 @@ services:
         ipv4_address: 172.16.1.8
     extra_hosts:
       - "zk01:172.16.1.2"
-      - "ch01:172.16.1.6"
-      - "ch02:172.16.1.7"
+      - "ck01:172.16.1.6"
+      - "ck02:172.16.1.7"
     volumes:
       - ~/apps/clickhouse/ck03/conf/config_ck03.xml:/etc/clickhouse-server/config.xml
       - ~/apps/clickhouse/ck03/conf/users.xml:/etc/clickhouse-server/users.xml
