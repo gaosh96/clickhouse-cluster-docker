@@ -308,46 +308,22 @@
 					<host>ck01</host>
 					<port>9000</port>
 				</replica>
-                <replica>
-                    <host>ck02</host>
-                    <port>9000</port>
-                </replica>
-                <replica>
-                    <host>ck03</host>
-                    <port>9000</port>
-                </replica>
 			</shard>
 			<shard>
 				<weight>1</weight>
 				<internal_replication>true</internal_replication>
-                <replica>
-                    <host>ck01</host>
-                    <port>9000</port>
-                </replica>
-                <replica>
-                    <host>ck02</host>
-                    <port>9000</port>
-                </replica>
-                <replica>
-                    <host>ck03</host>
-                    <port>9000</port>
-                </replica>
+				<replica>
+					<host>ck02</host>
+					<port>9000</port>
+				</replica>
 			</shard>
 			<shard>
 				<weight>1</weight>
 				<internal_replication>true</internal_replication>
-                <replica>
-                    <host>ck01</host>
-                    <port>9000</port>
-                </replica>
-                <replica>
-                    <host>ck02</host>
-                    <port>9000</port>
-                </replica>
-                <replica>
-                    <host>ck03</host>
-                    <port>9000</port>
-                </replica>
+				<replica>
+					<host>ck03</host>
+					<port>9000</port>
+				</replica>
 			</shard>
 		</ck_cluster_dev>
     </remote_servers>
@@ -382,7 +358,7 @@
          See https://clickhouse.yandex/docs/en/table_engines/replication/
       -->
 
-    <zookeeper incl="zookeeper-servers" optional="true">
+    <zookeeper>
 		<node>
 			<host>zk01</host>
 			<port>2181</port>
@@ -394,10 +370,10 @@
 
          See https://clickhouse.yandex/docs/en/table_engines/replication/#creating-replicated-tables
       -->
-    <macros incl="macros" optional="true">
+    <macros>
 		<layer>01</layer>
 		<shard>01</shard>
-		<replica>ck01</replica>
+		<replica>01</replica>
 	</macros>
 
     <!-- Reloading interval for embedded dictionaries, in seconds. Default: 3600. -->

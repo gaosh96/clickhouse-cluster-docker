@@ -6,10 +6,12 @@
 zookeeper 3.6
 clickhouse-server 20.8
 
-ck 为 3 shards 3 replica
+ck 为 3 shards 1 replica
 
 默认用户名密码：default/default
 ```
+![](https://github.com/gaosh96/clickhouse-cluster-docker/tree/main/1zk_3shards_1replica/ck_cluster_dev.png)
+
 
 ## 部署步骤
 * 创建本地目录，具体挂载情况可以参考 yml 文件
@@ -52,7 +54,7 @@ mkdir -p ~/apps/clickhouse/ck03/logs
 
 - 执行 docker-compose 首次启动集群
 ```shell
-docker-compose -f ck_1zk_3shards_3replica.yml -p ck_cluster_dev up -d
+docker-compose -f ck_1zk_3shards_1replica.yml -p ck_cluster_dev up -d
 ```
 
 - 可以进入容器执行 clickhouse-client 查看集群分片或者直接使用 dbeaver 连接
@@ -72,31 +74,23 @@ FROM system.clusters
 
 ┌─cluster────────┬─shard_num─┬─shard_weight─┬─replica_num─┬─host_name─┬─host_address─┬─port─┬─is_local─┬─user────┬─default_database─┬─errors_count─┬─estimated_recovery_time─┐
 │ ck_cluster_dev │         1 │            1 │           1 │ ck01      │ 172.16.1.6   │ 9000 │        1 │ default │                  │            0 │                       0 │
-│ ck_cluster_dev │         1 │            1 │           2 │ ck02      │ 172.16.1.7   │ 9000 │        0 │ default │                  │            0 │                       0 │
-│ ck_cluster_dev │         1 │            1 │           3 │ ck03      │ 172.16.1.8   │ 9000 │        0 │ default │                  │            0 │                       0 │
-│ ck_cluster_dev │         2 │            1 │           1 │ ck01      │ 172.16.1.6   │ 9000 │        1 │ default │                  │            0 │                       0 │
-│ ck_cluster_dev │         2 │            1 │           2 │ ck02      │ 172.16.1.7   │ 9000 │        0 │ default │                  │            0 │                       0 │
-│ ck_cluster_dev │         2 │            1 │           3 │ ck03      │ 172.16.1.8   │ 9000 │        0 │ default │                  │            0 │                       0 │
-│ ck_cluster_dev │         3 │            1 │           1 │ ck01      │ 172.16.1.6   │ 9000 │        1 │ default │                  │            0 │                       0 │
-│ ck_cluster_dev │         3 │            1 │           2 │ ck02      │ 172.16.1.7   │ 9000 │        0 │ default │                  │            0 │                       0 │
-│ ck_cluster_dev │         3 │            1 │           3 │ ck03      │ 172.16.1.8   │ 9000 │        0 │ default │                  │            0 │                       0 │
+│ ck_cluster_dev │         2 │            1 │           1 │ ck02      │ 172.16.1.7   │ 9000 │        0 │ default │                  │            0 │                       0 │
+│ ck_cluster_dev │         3 │            1 │           1 │ ck03      │ 172.16.1.8   │ 9000 │        0 │ default │                  │            0 │                       0 │
 └────────────────┴───────────┴──────────────┴─────────────┴───────────┴──────────────┴──────┴──────────┴─────────┴──────────────────┴──────────────┴─────────────────────────┘
 
-9 rows in set. Elapsed: 0.008 sec.
-
-ck01 :)
+3 rows in set. Elapsed: 0.015 sec.
 ```
 
 - 启停集群
 ```shell
 # 启动
-docker-compose -f ck_1zk_3shards_3replica.yml -p ck_cluster_dev start
+docker-compose -f ck_1zk_3shards_1replica.yml -p ck_cluster_dev start
 
 # 可能会出现停止失败的情况，建议使用 docker stop 一个个的 container 手动停
-docker-compose -f ck_1zk_3shards_3replica.yml -p ck_cluster_dev stop
+docker-compose -f ck_1zk_3shards_1replica.yml -p ck_cluster_dev stop
 
 # 停止并删除 container
-docker-compose -f ck_1zk_3shards_3replica.yml -p ck_cluster_dev down
+docker-compose -f ck_1zk_3shards_1replica.yml -p ck_cluster_dev down
 ```
 
 - 如果在 macos 下出现停止失败的情况
