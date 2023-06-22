@@ -10,7 +10,8 @@ ck 为 3 shards 1 replica
 
 默认用户名密码：default/default
 ```
-![](https://github.com/gaosh96/clickhouse-cluster-docker/tree/main/1zk_3shards_1replica/ck_cluster_dev.png)
+
+![](1zk_3shards_1replica/ck_cluster_dev.png)
 
 
 ## 部署步骤
