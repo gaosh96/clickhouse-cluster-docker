@@ -102,5 +102,6 @@ xxx tried to kill container, but did not receive an exit event
 killall Docker
 ```
 
+- DBeaver 连接 Clickhouse 查询出的时区差 8 小时，在驱动属性中设置如下两个值
 
-
+![](1zk_3shards_1replica/dbeaver_config.png)
