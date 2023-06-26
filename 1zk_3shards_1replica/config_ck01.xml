@@ -308,6 +308,8 @@
 				<replica>
 					<host>ck01</host>
 					<port>9000</port>
+					<user>default</user>
+                                        <password>default</password>
 				</replica>
 			</shard>
 			<shard>
@@ -316,6 +318,8 @@
 				<replica>
 					<host>ck02</host>
 					<port>9000</port>
+					<user>default</user>
+                                        <password>default</password>
 				</replica>
 			</shard>
 			<shard>
@@ -324,6 +328,8 @@
 				<replica>
 					<host>ck03</host>
 					<port>9000</port>
+					<user>default</user>
+                                        <password>default</password>
 				</replica>
 			</shard>
 		</ck_cluster_dev>
