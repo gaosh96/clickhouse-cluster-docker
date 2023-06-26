@@ -53,9 +53,9 @@ services:
       clickhouse-cluster:
         ipv4_address: 172.16.1.7
     extra_hosts:
-      - "zk01:172.18.1.2"
-      - "ck01:172.18.1.6"
-      - "ck03:172.18.1.8"
+      - "zk01:172.16.1.2"
+      - "ck01:172.16.1.6"
+      - "ck03:172.16.1.8"
     volumes:
       - ~/apps/clickhouse/ck02/conf/config_ck02.xml:/etc/clickhouse-server/config.xml
       - ~/apps/clickhouse/ck02/conf/users.xml:/etc/clickhouse-server/users.xml
