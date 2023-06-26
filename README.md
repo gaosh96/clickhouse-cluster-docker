@@ -85,13 +85,13 @@ FROM system.clusters
 - 启停集群
 ```shell
 # 启动
-docker-compose -f ck_1zk_3shards_1replica.yml -p ck_cluster_dev start
+docker-compose -p ck_cluster_dev start
 
-# 可能会出现停止失败的情况，建议使用 docker stop 一个个的 container 手动停
-docker-compose -f ck_1zk_3shards_1replica.yml -p ck_cluster_dev stop
+# 停止
+docker-compose -p ck_cluster_dev stop
 
 # 停止并删除 container
-docker-compose -f ck_1zk_3shards_1replica.yml -p ck_cluster_dev down
+docker-compose -p ck_cluster_dev down
 ```
 
 - 如果在 macos 下出现停止失败的情况
@@ -100,6 +100,17 @@ xxx tried to kill container, but did not receive an exit event
 
 # kill docker 进程，然后重新启动 docker
 killall Docker
+```
+
+- 重新部署时先清除挂载目录中的旧数据
+```shell
+rm -rf ~/apps/clickhouse/ck01/data/*
+rm -rf ~/apps/clickhouse/ck02/data/*
+rm -rf ~/apps/clickhouse/ck03/data/*
+
+rm -rf ~/apps/clickhouse/ck01/logs/*
+rm -rf ~/apps/clickhouse/ck02/logs/*
+rm -rf ~/apps/clickhouse/ck03/logs/*
 ```
 
 - DBeaver 连接 Clickhouse 查询出的时区差 8 小时，在驱动属性中设置如下两个值
